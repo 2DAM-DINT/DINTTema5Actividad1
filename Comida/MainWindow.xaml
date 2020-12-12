@@ -5,9 +5,224 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
-        Title="Comida" Height="450" Width="800"
-        Icon="./recursos/fruit_food_apple.ico">
-    <Grid>
-        
-    </Grid>
+        Title="Comida" Height="700" Width="950"
+        Icon="./recursos/fruit_food_apple.ico"
+        Background="LightSkyBlue">
+    <Window.Resources>
+        <Style TargetType="Image" x:Key="tipoComida">
+            <Setter Property="Width"
+                    Value="35" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Americana">
+                    <Setter Property="Source"
+                            Value="./recursos/united_states.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Mexicana">
+                    <Setter Property="Source"
+                            Value="./recursos/mexico.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="China">
+                    <Setter Property="Source"
+                            Value="./recursos/china.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image" x:Key="alergenos">
+            <Setter Property="Width"
+                    Value="27" />
+            <Setter Property="Visibility"
+                    Value="Collapsed" />
+        </Style>
+
+        <Style TargetType="Image" 
+               BasedOn="{StaticResource alergenos}" 
+               x:Key="gluten">
+            <Setter Property="Source"
+                    Value=".\recursos\gluten.png" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Gluten}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image"
+               BasedOn="{StaticResource alergenos}"
+               x:Key="leche">
+            <Setter Property="Source"
+                    Value=".\recursos\milk.png" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Leche}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image"
+               BasedOn="{StaticResource alergenos}"
+               x:Key="sulfitos">
+            <Setter Property="Source"
+                    Value="./recursos/sulfide.png" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Sulfitos}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image"
+               BasedOn="{StaticResource alergenos}"
+               x:Key="soja">
+            <Setter Property="Source"
+                    Value="./recursos/soybean.png" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Soja}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+
+        <Style TargetType="TextBlock"
+               x:Key="titulo">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Americana">
+                    <Setter Property="FontFamily"
+                            Value="Slim Summer" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="China">
+                    <Setter Property="FontFamily"
+                            Value="Chinese Wok Food St" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Mexicana">
+                    <Setter Property="FontFamily"
+                            Value="Taco Salad" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:Plato}">
+            <Border Width="240"
+                    Height="280"
+                    Margin="10"
+                    Padding="7"
+                    Background="White"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect />
+                </Border.Effect>
+
+                <DockPanel>
+                    <Viewbox DockPanel.Dock="Top"
+                             Height="60"
+                             Margin="5,0">
+                        <TextBlock DockPanel.Dock="Top"
+                                   Style="{StaticResource titulo}"
+                                   Text="{Binding Path=Nombre}" />
+                    </Viewbox>
+                    <DockPanel LastChildFill="False"
+                               DockPanel.Dock="Bottom"
+                               Margin="5">
+                        <Image Style="{StaticResource tipoComida}" />
+                        <StackPanel DockPanel.Dock="Right"
+                                    Orientation="Horizontal">
+                            <Image Style="{StaticResource gluten}" />
+                            <Image Style="{StaticResource leche}" />
+                            <Image Style="{StaticResource sulfitos}" />
+                            <Image Style="{StaticResource soja}" />
+                        </StackPanel>
+                    </DockPanel>
+                    <Image Source="{Binding Path=Imagen}"
+                           Width="220"
+                           Margin="5"/>
+                </DockPanel>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Border BorderBrush="Black"
+            BorderThickness="1">
+        <Grid Margin="10"
+              Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <ListBox Margin="5"
+                     x:Name="listaPlatos"
+                     ItemsSource="{Binding}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <StackPanel Margin="5" 
+                        Background="LightGray"
+                        Grid.Column="2"
+                        DataContext="{Binding ElementName=listaPlatos, Path=SelectedItem}">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Nombre del plato" />
+                    <TextBox Text="{Binding Path=Nombre}" />
+                </StackPanel>
+                
+                <StackPanel Margin="10">
+                    <TextBlock Text="Foto del plato" />
+                    <TextBox Text="{Binding Path=Imagen}" />
+                </StackPanel>
+
+                <StackPanel Margin="10">
+                    <TextBlock Text="Tipo de comida" />
+                    <ComboBox Text="{Binding Path=Tipo}">
+                        <ComboBoxItem>China</ComboBoxItem>
+                        <ComboBoxItem>Americana</ComboBoxItem>
+                        <ComboBoxItem>Mexicana</ComboBoxItem>
+                        <ComboBoxItem>Caca</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <GroupBox Header="Alérgenos"
+                          Margin="10"
+                          BorderBrush="Black">
+                    <UniformGrid>
+                        <CheckBox Content="Leche"
+                                  IsChecked="{Binding Path=Leche}" />
+                        <CheckBox Content="Soja"
+                                  IsChecked="{Binding Path=Soja}" />
+                        <CheckBox Content="Gluten"
+                                  IsChecked="{Binding Path=Gluten}" />
+                        <CheckBox Content="Sulfitos"
+                                  IsChecked="{Binding Path=Sulfitos}" />
+                    </UniformGrid>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

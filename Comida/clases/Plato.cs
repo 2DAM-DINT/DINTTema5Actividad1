@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Comida
 {
@@ -13,6 +14,13 @@ namespace Comida
         private bool soja;
         private bool leche;
         private bool sulfitos;
+
+        private readonly string[] TIPOS_VALIDOS = new string[]
+        {
+            "Americana",
+            "Mexicana",
+            "China"
+        };
 
         public string Nombre 
         {
@@ -47,8 +55,25 @@ namespace Comida
             {
                 if (this.tipo != value)
                 {
-                    this.tipo = value;
-                    this.NotifyPropertyChanged("Tipo");
+                    bool tipoValido = false;
+
+                    for (int i = 0; i < TIPOS_VALIDOS.Length && !tipoValido; i++)
+                    {
+                        tipoValido = TIPOS_VALIDOS[i] == value;
+                    }
+
+                    if (!tipoValido)
+                    {
+                        MessageBox.Show("Tipo incorrecto",
+                                    $"Estos son los siguientes tipos correctos: {TIPOS_VALIDOS}",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Exclamation);
+                    }
+                    else
+                    {
+                        this.tipo = value;
+                        this.NotifyPropertyChanged("Tipo");
+                    }
                 }
             }
         }
@@ -130,13 +155,13 @@ namespace Comida
         {
             List<Plato> lista = new List<Plato>();
 
-            lista.Add(new Plato("Hamburguesa", Path.Combine(rutaImagenes, @"./recursos/platos/burguer.jpg"), "Americana", true, false, true, true));
-            lista.Add(new Plato("Dumplings", Path.Combine(rutaImagenes, @"./recursos/platos/dumplings.jpg"), "China", true, true, false, false));
-            lista.Add(new Plato("Tacos", Path.Combine(rutaImagenes, @"./recursos/platos/tacos.jpg"), "Mexicana", true, false, false, true));
-            lista.Add(new Plato("Cerdo agridulce", Path.Combine(rutaImagenes, @"./recursos/platos/cerdoagridulce.jpg"), "China", true, true, false, true));
-            lista.Add(new Plato("Hot dogs", Path.Combine(rutaImagenes, @"./recursos/platos/hotdog.jpg"), "Americana", true, true, true, true));
-            lista.Add(new Plato("Fajitas", Path.Combine(rutaImagenes, @"./recursos/platos/fajitas.jpg"), "Mexicana", true, false, false, true));
-
+            lista.Add(new Plato("Hamburguesa", Path.Combine(rutaImagenes, @"burguer.jpg"), "Americana", true, false, true, true));
+            lista.Add(new Plato("Dumplings", Path.Combine(rutaImagenes, @"dumplings.jpg"), "China", true, true, false, false));
+            lista.Add(new Plato("Tacos", Path.Combine(rutaImagenes, @"tacos.jpg"), "Mexicana", true, false, false, true));
+            lista.Add(new Plato("Cerdo agridulce", Path.Combine(rutaImagenes, @"cerdoagridulce.jpg"), "China", true, true, false, true));
+            lista.Add(new Plato("Hot dogs", Path.Combine(rutaImagenes, @"hotdog.jpg"), "Americana", true, true, true, true));
+            lista.Add(new Plato("Fajitas", Path.Combine(rutaImagenes, @"fajitas.jpg"), "Mexicana", true, false, false, true));
+            
             return lista;
         }
     }
