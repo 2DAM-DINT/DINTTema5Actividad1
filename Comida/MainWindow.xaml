@@ -17,16 +17,22 @@
                              Value="Americana">
                     <Setter Property="Source"
                             Value="./recursos/united_states.png" />
+                    <Setter Property="ToolTip"
+                            Value="Comida americana" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="Mexicana">
                     <Setter Property="Source"
                             Value="./recursos/mexico.png" />
+                    <Setter Property="ToolTip"
+                            Value="Comida mexicana" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="China">
                     <Setter Property="Source"
                             Value="./recursos/china.png" />
+                    <Setter Property="ToolTip"
+                            Value="Comida china" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -200,11 +206,8 @@
 
                 <StackPanel Margin="10">
                     <TextBlock Text="Tipo de comida" />
-                    <ComboBox Text="{Binding Path=Tipo}">
-                        <ComboBoxItem>China</ComboBoxItem>
-                        <ComboBoxItem>Americana</ComboBoxItem>
-                        <ComboBoxItem>Mexicana</ComboBoxItem>
-                        <ComboBoxItem>Caca</ComboBoxItem>
+                    <ComboBox x:Name="listaTipos"
+                              Text="{Binding Path=Tipo}">
                     </ComboBox>
                 </StackPanel>
 
