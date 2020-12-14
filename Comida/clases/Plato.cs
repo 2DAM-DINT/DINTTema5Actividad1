@@ -15,7 +15,7 @@ namespace Comida
         private bool leche;
         private bool sulfitos;
 
-        private readonly string[] TIPOS_VALIDOS = new string[]
+        public static readonly string[] TIPOS_VALIDOS = new string[]
         {
             "Americana",
             "Mexicana",
@@ -55,25 +55,8 @@ namespace Comida
             {
                 if (this.tipo != value)
                 {
-                    bool tipoValido = false;
-
-                    for (int i = 0; i < TIPOS_VALIDOS.Length && !tipoValido; i++)
-                    {
-                        tipoValido = TIPOS_VALIDOS[i] == value;
-                    }
-
-                    if (!tipoValido)
-                    {
-                        MessageBox.Show("Tipo incorrecto",
-                                    $"Estos son los siguientes tipos correctos: {TIPOS_VALIDOS}",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Exclamation);
-                    }
-                    else
-                    {
-                        this.tipo = value;
-                        this.NotifyPropertyChanged("Tipo");
-                    }
+                    this.tipo = value;
+                    this.NotifyPropertyChanged("Tipo");
                 }
             }
         }

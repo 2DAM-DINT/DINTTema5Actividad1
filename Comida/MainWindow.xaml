@@ -192,7 +192,7 @@
 
             <StackPanel Margin="5" 
                         Background="LightGray"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         DataContext="{Binding ElementName=listaPlatos, Path=SelectedItem}">
                 <StackPanel Margin="10">
                     <TextBlock Text="Nombre del plato" />
@@ -207,7 +207,7 @@
                 <StackPanel Margin="10">
                     <TextBlock Text="Tipo de comida" />
                     <ComboBox x:Name="listaTipos"
-                              Text="{Binding Path=Tipo}">
+                              SelectedItem="{Binding Path=Tipo}">
                     </ComboBox>
                 </StackPanel>
 

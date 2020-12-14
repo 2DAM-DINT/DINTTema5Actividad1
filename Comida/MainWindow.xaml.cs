@@ -7,7 +7,7 @@ namespace Comida
     {
         private List<Plato> Platos { get; set; }
 
-        private readonly List<string> tiposValidos;
+        private readonly List<string> tiposLista;
 
         public MainWindow()
         {
@@ -15,11 +15,7 @@ namespace Comida
             Platos = Plato.GetSamples(@".\recursos\platos");
             listaPlatos.DataContext = Platos;
 
-            tiposValidos = new List<string>();
-            tiposValidos.Add("Americana");
-            tiposValidos.Add("Mexicana");
-            tiposValidos.Add("China");
-            listaTipos.ItemsSource = tiposValidos;
+            listaTipos.ItemsSource = Plato.TIPOS_VALIDOS;
         }
     }
 }
