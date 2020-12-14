@@ -7,7 +7,7 @@ namespace Comida
     {
         private List<Plato> Platos { get; set; }
 
-        private List<string> tiposValidos;
+        private readonly List<string> tiposValidos;
 
         public MainWindow()
         {
